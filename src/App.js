@@ -1,39 +1,13 @@
 import './styles/App.css'
-// import CurrentPoints from './components/app/CurrentPoints';
-import { BoltIcon, ChatBubbleBottomCenterTextIcon, GlobeAltIcon, ScaleIcon } from '@heroicons/react/24/outline'
+import CurrentPoints from './components/app/CurrentPoints';
+import PayerCompanyPoints from './components/app/PayerCompanyPoints';
+import AllTransactions from './components/app/AllTransactions';
 
-/* This example requires Tailwind CSS v2.0+ */
-
-
+import { BoltIcon } from '@heroicons/react/24/outline'
+// ChatBubbleBottomCenterTextIcon, GlobeAltIcon, ScaleIcon
+// all of this is rendered inside main index.js file
 
 export default function App() {
-
-  const features = [
-    {
-      name: 'Competitive exchange rates',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: GlobeAltIcon,
-    },
-    {
-      name: 'No hidden fees',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: ScaleIcon,
-    },
-    {
-      name: 'Transfers are instant',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: BoltIcon,
-    },
-    {
-      name: 'Mobile notifications',
-      description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: ChatBubbleBottomCenterTextIcon,
-    },
-  ]
 
   return (
 
@@ -45,33 +19,36 @@ export default function App() {
         </h1>
       </header>
 
-      <div className="bg-white py-12">
+      <div className="py-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
-            <h2 className="text-lg font-semibold text-indigo-600">Transactions</h2>
-            <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
-              A better way to send money
+            <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-fetchYellow sm:text-4xl">
+            Your Points Balance
             </p>
-            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-              accusamus quisquam.
+            <p className="mt-4 max-w-2xl text-xl w-1/3 text-white lg:mx-auto">
+              CURRENT POINTS HERE
+              <CurrentPoints />
             </p>
           </div>
 
           <div className="mt-10">
-            <dl className="space-y-10 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 md:space-y-0">
-              {features.map((feature) => (
-                <div key={feature.name} className="relative">
-                  <dt>
-                    <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-indigo-500 text-white">
-                      <feature.icon className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    <p className="ml-16 text-lg font-medium leading-6 text-gray-900">{feature.name}</p>
-                  </dt>
-                  <dd className="mt-2 ml-16 text-base text-gray-500">{feature.description}</dd>
+            <div className="space-y-10 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 md:space-y-0">
+                <div className="relative">
+                  <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-fetchYellow text-white">
+                    <BoltIcon className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <p className="ml-16 text-lg font-medium leading-6 text-white">PayerCompany List: 'Iterate through all payers and list them below with their points.'</p>
+                  <p className="mt-2 ml-16 text-base text-gray-500">Transactions: 'The list of all transactions. Scroll in limited window.'</p>
                 </div>
-              ))}
-            </dl>
+            </div>
+            <p className="mt-4 max-w-2xl text-xl w-1/3 text-white lg:mx-auto">
+              PayerCompanyPoints HERE
+              <PayerCompanyPoints />
+            </p>
+            <p className="mt-4 max-w-2xl text-xl w-1/3 text-white lg:mx-auto">
+              AllTransactions HERE
+              <AllTransactions />
+            </p>
           </div>
         </div>
       </div>

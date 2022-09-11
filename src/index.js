@@ -13,3 +13,4 @@ root.render(
   </React.StrictMode>
 );
 
+// this will render all the react stuff in the index.html file through <div id="root"></div>
