@@ -1,11 +1,12 @@
 import React from "react";
 
-const CurrentPoints = () => {
+const CurrentPoints = (transactions) => {
+
   return (
     <div className="w-full p-4 bg-fetchYellow rounded-md shadow-card">
-    
-
-        <p className="text-center">I am the CurrentPoints Component!</p>
+       <p className="text-center">
+       CURRENT POINTS HERE
+       </p>
     </div>
   );
 };
