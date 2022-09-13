@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './styles/App.css'
 import CurrentPoints from './components/app/CurrentPoints';
-import PayerCompanyPoints from './components/app/PayerCompanyPoints';
+// import PayerCompanyPoints from './components/app/PayerCompanyPoints';
 // import AllTransactions from './components/app/AllTransactions';
 // import { faker } from '@faker-js/faker';
 import Form from './components/Form';
@@ -59,19 +59,13 @@ export default function App() {
           setPayer={setPayer}
           handleSubmit={handleSubmit}
         />
-      
         </div>
       </header>
 
       <div className="py-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
-            <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-fetchYellow sm:text-4xl">
-            Your Points Balance
-            </p>
-            <div className="mt-4 max-w-2xl text-xl w-1/3 text-white lg:mx-auto">
-              <CurrentPoints transactions={transactions}/>
-            </div>
+
           </div>
 
           <div className="mt-10">
@@ -88,7 +82,7 @@ export default function App() {
               PayerCompanyPoints HERE
               <PayerCompanyPoints />
             </div> */}
-            <div className="mt-4 max-w-2xl text-xl w-2/3 text-white lg:mx-auto">
+            <div className="mt-4 max-w-2xl text-xl w-2/3 text-black lg:mx-auto w-full p-4 bg-fetchYellow rounded-md shadow-card">
               YOUR TRANSACTIONS
               {transactions.map((transaction, index) => (
                 <Transaction
