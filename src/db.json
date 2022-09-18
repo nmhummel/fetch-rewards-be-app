@@ -1,18 +1,19 @@
 {
-    "transactions": [
-        { "id": 1, "payerCompany": "Pepsi", "points": 150,"timestamp": "2022-01-01T07:00:00.000Z"},
-        { "id": 2, "payerCompany": "Colgate", "points": 100,"timestamp": "2022-05-21T10:00:00.000Z"},
-        { "id": 3, "payerCompany": "Charmin", "points": 200,"timestamp": "2022-02-01T08:45:00.000Z"},
-        { "id": 4, "payerCompany": "Fritos Lay", "points": 300,"timestamp": "2022-02-23T11:36:00.000Z"},
-        { "id": 5, "payerCompany": "Yoplait", "points": 50,"timestamp": "2022-03-11T16:04:00.000Z"},
-        { "id": 6, "payerCompany": "Bose", "points": 500,"timestamp": "2022-06-14T15:18:36.000Z"},
-        { "id": 7, "payerCompany": "Timex", "points": 750,"timestamp": "2022-03-01T22:00:00.000Z"},
-        { "id": 8, "payerCompany": "Sony", "points": 10000,"timestamp": "2022-07-01T20:14:00.000Z"},
-        { "id": 9, "payerCompany": "Dell", "points": 12500,"timestamp": "2022-02-01T13:33:00.000Z"},
-        { "id": 10, "payerCompany": "Purina", "points": 300,"timestamp": "2022-05-01T15:12:00.000Z"},
-        { "id": 11, "payerCompany": "Contigo", "points": 275,"timestamp": "2022-04-01T14:38:00.000Z"},
-        { "id": 12, "payerCompany": "Tostitos", "points": 50,"timestamp": "2022-09-01T00:33:23.000Z"}
-    ],
-  "companyPoints": [
-    ]
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }
