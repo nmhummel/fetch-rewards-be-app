@@ -13,6 +13,7 @@
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -21,3 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+*settings.js
+
+# .gitignore ignores only files that weren't tracked before (by git add). Run git reset name_of_file to unstage the file and keep it. In case you want to also remove the given file from the repository (after pushing), use git rm --cached name_of_file.

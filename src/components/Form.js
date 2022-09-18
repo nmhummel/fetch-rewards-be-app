@@ -1,6 +1,6 @@
 import React from "react";
 
-const Form = ({ inputPoints, setPoints, inputPayer, setPayer, handleSubmit }) => {
+const Form = ({ inputPoints, setPoints, inputPayer, setPayer, addTransactions }) => {
   return (
     <div className="form flex flex-row">
       <input
@@ -16,7 +16,7 @@ const Form = ({ inputPoints, setPoints, inputPayer, setPayer, handleSubmit }) =>
         className="input px-2 mx-2 text-black text-lg"
         placeholder={"Enter Points Here"}
       />
-      <button onClick={handleSubmit} className="submit mx-2 px-2 bg-black border-2 text-xl">
+      <button onClick={addTransactions} className="submit mx-2 px-2 bg-black border-2 text-xl">
         Submit
       </button>
     </div>

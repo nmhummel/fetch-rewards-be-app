@@ -1,35 +1,31 @@
-import React, {Suspense} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {ToastContainer} from 'react-toastify';
+import { Axios } from "axios";
 
-// providers
-import Layout from '../components/navigation/Layout';
-
-// Routes
-// import Marketplace from "../views/Marketplace";
+const server = Axios;
 
 
-export default function Routes() {
-  return (
-    <Router>
-          <ToastContainer />
-          <Route
-            exact
-            path={[
-              '/'
-            ]}
-          >
-            <Layout>
-              <Suspense
-                fallback={
-                  <div className="flex items-center my-16 hidden">
-                    <h1 className="w-full text-2xl">Loading...</h1>
-                  </div>
-                }
-              >
-              </Suspense>
-            </Layout>
-          </Route>
-    </Router>
-  );
+const AllRoutes = () => {
+    // server.get('/transactions', getAllTransactions);
+    server.get('/getpointsbalance', getPointsBalance);
+    server.post('/addtransaction', addTransaction);
+    server.post('/spendpoints', spendPoints);
+};
+
+
+// const getAllTransactions = () => {
+
+// }
+
+const getPointsBalance = () => {
+
 }
+
+const addTransaction = () => {
+   
+
+}
+
+const spendPoints = () => {
+}
+
+
+export default AllRoutes; 
