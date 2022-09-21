@@ -15,7 +15,6 @@ const AllTransactions = ({ transaction, index }) => {
           <table className="table-auto w-full">
           <thead>
             <tr>
-              <th>No.</th>
               <th>Company</th>
               <th>Points</th>
               <th>Date and Time</th>
@@ -23,7 +22,6 @@ const AllTransactions = ({ transaction, index }) => {
           </thead>
           <tbody>
             <tr>
-              <td>{index + 1}</td>
               <td>{transaction.payerCompany}</td>
               <td>{transaction.points}</td>
               <td>{friendlyDateAndTime}</td>

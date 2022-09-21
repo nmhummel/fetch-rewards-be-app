@@ -1,94 +1,76 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+// import { BrowserRouter as Router, Route } from "react-router-dom";
+// import { uuid } from "uuidv4";
 import { BoltIcon } from '@heroicons/react/24/outline'
-import './styles/App.css'
-import CurrentPoints from './components/app/CurrentPoints';
-import PayerCompanyPoints from './components/app/PayerCompanyPoints';
-import Form from './components/Form';
-import AllTransactions from "./components/app/AllTransactions";
-import AllRoutes from "./routes";
-import axios from 'axios';
-
-// const getNameAxios = async () => {
-//   try {
-//      const resGet = await axios.get('/transactions')
-//      console.log(resGet)
-//   } catch (error) {
-//      console.log(error);
-//   }
-// }
-// getNameAxios(6);
-
-// ChatBubbleBottomCenterTextIcon, GlobeAltIcon, ScaleIcon
-// all of this is rendered inside main index.js file
-
+import { nanoid } from 'nanoid';
+import '../styles/App.css'
+// import axios from 'axios';
+import api from '../api'
+import PayerCompanyPoints from './PayerCompanyPoints';
+import Header from './Header';
+import AllTransactions from "./AllTransactions";
+// import AllRoutes from "./routes";
+// import CurrentPoints from './components/CurrentPoints';
 
 export default function App() {
   const [inputPoints, setPoints] = useState("");
   const [inputPayer, setPayer] = useState("");
-  const [transactions, setTransactions] = useState("");
-  let now = new Date();
-  let convert = now.toISOString()
+  const [transactions, setTransactions] = useState([]);
 
-  const getHome = async () => {
+  const transId = nanoid();
+
+
+  const fetchTransactions = async () => {
     try {
-      const response = await axios('http://localhost:3000/');
-      console.log("resp", response);
-    } catch (error) {
-      console.error("error", error);
+      const response = await api.get('/transactions')
+      setTransactions(response.data)  
+      // console.log('RESP DATA', response.data)
+      return response.data
+    } catch (err) {
+      if (err.response) {
+        console.log("data error => ", err.response.data)
+        console.log("status error => ", err.response.status)
+        console.log("headers error => ", err.response.headers)
+      } else {
+        console.log('Error: ', err.message)
+      }
     }
-  }
-  const getTransactions = async () => { // done 
-    const { data, status } = await axios('/')
-    if (status === 200) setTransactions(data);
-    console.log("fetch status", status)
-    // console.log('fetch data', data)
-  }
-
- 
-
-  useEffect(() => { // done
-    getHome(); 
+  }  
+  useEffect(() => {
+    const getAllTransactions = async () => {
+      const allTransactions = await fetchTransactions();
+      if (allTransactions) setTransactions(allTransactions);
+    };
+    getAllTransactions();
   }, [])
 
+  useEffect(() => {
+    //
+  }, [transactions]);
 
-  const addTransactions = async () => {
-    if (inputPoints === "" || inputPayer === "") return;
-    const newTransaction = { payerCompany: inputPayer, points: inputPoints, timestamp: convert };
-    // setTransactions([...transactions, newTransaction]);
-    await axios({
-      method: 'POST',
-      url: '/addtransaction',
-      data: newTransaction
-    });
-    setPoints("");
-    setPayer("");
+  const handleAddingTransactions = async (newTransaction) => {
+    console.log("newTransaction", newTransaction)
+    const request = { 
+      id: transId,
+      ...newTransaction
+    };
+    const response = await api.post('/transactions', request);
+    console.log('add resp', response)
+    setTransactions([...transactions, response.data]);
   };
 
-  const getPointsBalance = () => {
-    const allPoints = 0;
-    console.log("all trans", transactions)
-
-  }
+  console.log('TRANS 2', transactions)
+  // const getPointsBalance = () => {
+  //   const allPoints = 0;
+  //   console.log("all trans", transactions)
+  // }
 
 
   return (
     <div className="App">
-      <header className="App-header flex flex-row items-center">
-        <img className='App-Fetch-Doggie basis-1/6 justify-start' src='/fetch-doggie.png' alt='Fetch Rewards Logo' />
-        <h1 className="text-3xl font-bold basis-1/6">
-          Hello Doggo!
-        </h1>
-        <div className="items-right basis-4/6">
-        <Form
-          inputPoints={inputPoints}
-          setPoints={setPoints}
-          inputPayer={inputPayer}
-          setPayer={setPayer}
-          addTransactions={addTransactions}
-        />
-        </div>
-      </header>
-
+    {/* <Router> */}
+    {/* <Switch> */}
+     <Header inputPoints={inputPoints} setPoints={setPoints} inputPayer={inputPayer} setPayer={setPayer} handleAddingTransactions={handleAddingTransactions}  />
       <div className="py-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
@@ -111,17 +93,19 @@ export default function App() {
             </div>
             <div className="mt-4 max-w-2xl text-xl w-2/3 text-black lg:mx-auto w-full p-4 bg-fetchYellow rounded-md shadow-card">
               YOUR TRANSACTIONS
-              {/* {transactions.map((transaction, index) => (
+              {transactions.map((transaction, index) => (
                 <AllTransactions
                   transaction={transaction}
                   index={index}
                   key={index}
                 />
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
       </div>
+      {/* </Switch> */}
+      {/* </Router> */}
     </div>
   
   );
