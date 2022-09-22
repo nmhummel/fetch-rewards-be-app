@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 // import { BrowserRouter as Router, Route } from "react-router-dom";
-// import { uuid } from "uuidv4";
-import { BoltIcon } from '@heroicons/react/24/outline'
+import { HomeIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
 import { nanoid } from 'nanoid';
 import '../styles/App.css'
-// import axios from 'axios';
 import api from '../api'
 import PayerCompanyPoints from './PayerCompanyPoints';
 import Header from './Header';
 import AllTransactions from "./AllTransactions";
+// import PointsBalance from "./PointsBalance";
+
 // import AllRoutes from "./routes";
 // import CurrentPoints from './components/CurrentPoints';
 
@@ -36,20 +36,40 @@ export default function App() {
       }
     }
   }  
+
+
   useEffect(() => {
     const getAllTransactions = async () => {
       const allTransactions = await fetchTransactions();
       if (allTransactions) setTransactions(allTransactions);
     };
     getAllTransactions();
+    
   }, [])
 
+
   useEffect(() => {
-    //
   }, [transactions]);
 
-  const handleAddingTransactions = async (newTransaction) => {
-    console.log("newTransaction", newTransaction)
+
+  const LastTransaction = () => {
+    // debugger
+    let last = Object.values(transactions).pop()
+    let payer = last.payerCompany;
+    let point = last.points;    
+    // console.log("last", last)
+    return payer + ': ' + point;
+  }
+
+  let now = new Date();
+  let convert = now.toISOString()
+  const newTransaction = { payerCompany: inputPayer, points: inputPoints, timestamp: convert }
+  const addTransaction = async (e) => {
+    e.preventDefault();
+    if (inputPoints === "" || inputPayer === "") {
+      alert("Please include both Company name and Points value.");
+      return;
+    }
     const request = { 
       id: transId,
       ...newTransaction
@@ -57,41 +77,54 @@ export default function App() {
     const response = await api.post('/transactions', request);
     console.log('add resp', response)
     setTransactions([...transactions, response.data]);
-  };
+    setPoints("");
+    setPayer("");
+  }
+
 
   console.log('TRANS 2', transactions)
-  // const getPointsBalance = () => {
-  //   const allPoints = 0;
-  //   console.log("all trans", transactions)
-  // }
+  
 
 
   return (
     <div className="App">
     {/* <Router> */}
     {/* <Switch> */}
-     <Header inputPoints={inputPoints} setPoints={setPoints} inputPayer={inputPayer} setPayer={setPayer} handleAddingTransactions={handleAddingTransactions}  />
+     <Header inputPoints={inputPoints} setPoints={setPoints} inputPayer={inputPayer} setPayer={setPayer} addTransaction={addTransaction}  />
       <div className="py-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center">
-
+          <div className="text-2xl text-fetchYellow font-bold lg:text-center">
           </div>
 
           <div className="mt-10">
             <div className="space-y-10 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 md:space-y-0">
                 <div className="relative">
-                  <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-fetchYellow text-white">
-                    <BoltIcon className="h-6 w-6" aria-hidden="true" />
+                  <div className="absolute flex h-16 w-16 items-center justify-center rounded-md bg-fetchYellow text-black">
+                    <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
                   </div>
-                  <p className="ml-16 text-lg font-medium leading-6 text-white">PayerCompany List: 'Iterate through all payers and list them below with their points.'</p>
-                  <p className="mt-2 ml-16 text-base text-gray-500">Transactions: 'The list of all transactions. Scroll in limited window.'</p>
+                  <p className="ml-16 text-2xl font-medium leading-6 text-white">
+                    Your Last Transaction <br/>
+                    <LastTransaction />
+                  </p>
+                  {/* <p className="mt-2 ml-16 text-base text-gray-500">Transactions: 'The list of all transactions. Scroll in limited window.'</p> */}
+                </div>
+                <div className="relative">
+                  <div className="absolute flex h-16 w-16 items-center justify-center rounded-md bg-fetchYellow text-black">
+                    <HomeIcon className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <p className="ml-16 text-2xl font-medium leading-6 text-white">
+                    Your Points Balance <br/>
+                    {/* <LastTransaction /> */}
+                  </p>
+                  {/* <p className="mt-2 ml-16 text-base text-gray-500">Transactions: 'The list of all transactions. Scroll in limited window.'</p> */}
                 </div>
             </div>
+            <br/><br/>
             <div className="mt-4 max-w-2xl text-xl w-1/3 text-white lg:mx-auto">
               PayerCompanyPoints HERE
               <PayerCompanyPoints transactions={transactions} />
             </div>
-            <div className="mt-4 max-w-2xl text-xl w-2/3 text-black lg:mx-auto w-full p-4 bg-fetchYellow rounded-md shadow-card">
+            <div className="mt-4 max-w-2xl h-96 rounded-2xl text-xl w-2/3 overflow-auto text-black lg:mx-auto w-full p-4 bg-fetchYellow rounded-md shadow-card">
               YOUR TRANSACTIONS
               {transactions.map((transaction, index) => (
                 <AllTransactions

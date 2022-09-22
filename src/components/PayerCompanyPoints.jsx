@@ -1,6 +1,8 @@
 import React from "react";
 
 const PayerCompanyPoints = (transactions) => {
+
+  // console.log("PCP", {transactions})
   return (
     <div className="w-full p-4 bg-fetchYellow rounded-md shadow-card">
     <p className="ml-16 text-lg font-medium leading-6 text-white">

@@ -1,23 +1,7 @@
 import React from "react";
 
-const Form = ({ inputPoints, setPoints, inputPayer, setPayer, handleAddingTransactions }) => {
-  let now = new Date();
-  let convert = now.toISOString()
-  const newTransaction = { payerCompany: inputPayer, points: inputPoints, timestamp: convert }
+const Form = ({ inputPoints, setPoints, inputPayer, setPayer, addTransaction }) => {
 
-  const addTransaction = (e) => {
-    e.preventDefault();
-    if (inputPoints === "" || inputPayer === "") {
-      alert("Please include both Company name and Points value.");
-      return;
-    }
-    console.log("type", handleAddingTransactions)
-    debugger
-    handleAddingTransactions(newTransaction);
-    setPoints("");
-    setPayer("");
-
-  }
   return (
     <div className="form flex flex-row">
       <input

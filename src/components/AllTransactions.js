@@ -11,8 +11,7 @@ const AllTransactions = ({ transaction, index }) => {
   return (
     <div className="w-full p-4 bg-fetchYellow rounded-md shadow-card">
       <div className="transaction mt-2 ml-16 text-base text-black">
-        <span className="transaction-text">
-          <table className="table-auto w-full">
+        <table className="table-auto w-full">
           <thead>
             <tr>
               <th>Company</th>
@@ -27,8 +26,7 @@ const AllTransactions = ({ transaction, index }) => {
               <td>{friendlyDateAndTime}</td>
             </tr>
             </tbody>
-          </table>
-        </span>
+        </table>
       </div>
     </div>
   );
